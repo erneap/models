@@ -1,0 +1,471 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/Volumes/Bottom/Projects/go-models",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2024-12-04 07:57:29",
+            "filesum": 72,
+            "codesum": 13280,
+            "commentsum": 320,
+            "blanksum": 1622,
+            "statistics": {
+                ".go": {
+                    "code": 13056,
+                    "comment": 284,
+                    "blank": 1618
+                },
+                ".md": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".sum": {
+                    "code": 173,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".mod": {
+                    "code": 50,
+                    "comment": 36,
+                    "blank": 4
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 8,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "config/config.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 43,
+                    "comment": 2,
+                    "filename": "config/connectDB.go"
+                },
+                {
+                    "blank": 9,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "converters/generalConversion.go"
+                },
+                {
+                    "blank": 35,
+                    "code": 275,
+                    "comment": 0,
+                    "filename": "employees/assignment.go"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "employees/companyInfo.go"
+                },
+                {
+                    "blank": 6,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "employees/contact.go"
+                },
+                {
+                    "blank": 91,
+                    "code": 1617,
+                    "comment": 37,
+                    "filename": "employees/employee.go"
+                },
+                {
+                    "blank": 17,
+                    "code": 95,
+                    "comment": 0,
+                    "filename": "employees/leave.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "employees/work.go"
+                },
+                {
+                    "blank": 14,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "general/dbReport.go"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "general/logs.go"
+                },
+                {
+                    "blank": 4,
+                    "code": 50,
+                    "comment": 36,
+                    "filename": "go.mod"
+                },
+                {
+                    "blank": 0,
+                    "code": 173,
+                    "comment": 0,
+                    "filename": "go.sum"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "labor/laborcode.go"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "labor/workcode.go"
+                },
+                {
+                    "blank": 9,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "logs/logentry.go"
+                },
+                {
+                    "blank": 8,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "logs/logentry2.go"
+                },
+                {
+                    "blank": 28,
+                    "code": 114,
+                    "comment": 15,
+                    "filename": "metrics/groundOutage.go"
+                },
+                {
+                    "blank": 12,
+                    "code": 26,
+                    "comment": 3,
+                    "filename": "metrics/initialdata.go"
+                },
+                {
+                    "blank": 33,
+                    "code": 114,
+                    "comment": 12,
+                    "filename": "metrics/mission.go"
+                },
+                {
+                    "blank": 8,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "notifications/notifications.go"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 34,
+                    "code": 216,
+                    "comment": 19,
+                    "filename": "reports/cofsReport.go"
+                },
+                {
+                    "blank": 42,
+                    "code": 571,
+                    "comment": 9,
+                    "filename": "reports/drawSummary.go"
+                },
+                {
+                    "blank": 43,
+                    "code": 314,
+                    "comment": 18,
+                    "filename": "reports/enterpriseSchedule.go"
+                },
+                {
+                    "blank": 90,
+                    "code": 1247,
+                    "comment": 31,
+                    "filename": "reports/laborReport.go"
+                },
+                {
+                    "blank": 119,
+                    "code": 1634,
+                    "comment": 19,
+                    "filename": "reports/leaveReport.go"
+                },
+                {
+                    "blank": 26,
+                    "code": 206,
+                    "comment": 3,
+                    "filename": "reports/midShiftReport.go"
+                },
+                {
+                    "blank": 74,
+                    "code": 934,
+                    "comment": 14,
+                    "filename": "reports/modTimeReport.go"
+                },
+                {
+                    "blank": 49,
+                    "code": 686,
+                    "comment": 15,
+                    "filename": "reports/msnSummary.go"
+                },
+                {
+                    "blank": 22,
+                    "code": 364,
+                    "comment": 0,
+                    "filename": "reports/reportModels.go"
+                },
+                {
+                    "blank": 47,
+                    "code": 449,
+                    "comment": 18,
+                    "filename": "reports/scheduleReport.go"
+                },
+                {
+                    "blank": 45,
+                    "code": 434,
+                    "comment": 18,
+                    "filename": "reports/siteScheduleReport.go"
+                },
+                {
+                    "blank": 13,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "sites/cofsReport.go"
+                },
+                {
+                    "blank": 20,
+                    "code": 150,
+                    "comment": 1,
+                    "filename": "sites/forecastReport.go"
+                },
+                {
+                    "blank": 6,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "sites/site.go"
+                },
+                {
+                    "blank": 10,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "sites/workcenter.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 226,
+                    "comment": 1,
+                    "filename": "soap/bibles/bible.go"
+                },
+                {
+                    "blank": 11,
+                    "code": 41,
+                    "comment": 1,
+                    "filename": "soap/bibles/book.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 160,
+                    "comment": 2,
+                    "filename": "soap/bibles/chapter.go"
+                },
+                {
+                    "blank": 3,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "soap/bibles/testament.go"
+                },
+                {
+                    "blank": 7,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "soap/entries/entry.go"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "soap/entries/perferences.go"
+                },
+                {
+                    "blank": 16,
+                    "code": 67,
+                    "comment": 0,
+                    "filename": "soap/entries/user.go"
+                },
+                {
+                    "blank": 14,
+                    "code": 89,
+                    "comment": 0,
+                    "filename": "soap/entries/useryear.go"
+                },
+                {
+                    "blank": 4,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "soap/plans/passage.go"
+                },
+                {
+                    "blank": 13,
+                    "code": 137,
+                    "comment": 0,
+                    "filename": "soap/plans/readingday.go"
+                },
+                {
+                    "blank": 13,
+                    "code": 128,
+                    "comment": 0,
+                    "filename": "soap/plans/readingperiod.go"
+                },
+                {
+                    "blank": 16,
+                    "code": 115,
+                    "comment": 0,
+                    "filename": "soap/plans/readingplan.go"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "soap/pullinfo/pullbook.go"
+                },
+                {
+                    "blank": 59,
+                    "code": 202,
+                    "comment": 3,
+                    "filename": "svcs/dbLogService.go"
+                },
+                {
+                    "blank": 14,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "svcs/emailService.go"
+                },
+                {
+                    "blank": 61,
+                    "code": 261,
+                    "comment": 12,
+                    "filename": "svcs/employeeService.go"
+                },
+                {
+                    "blank": 32,
+                    "code": 69,
+                    "comment": 4,
+                    "filename": "svcs/employeeWorkService.go"
+                },
+                {
+                    "blank": 19,
+                    "code": 201,
+                    "comment": 1,
+                    "filename": "svcs/jwtService.go"
+                },
+                {
+                    "blank": 39,
+                    "code": 84,
+                    "comment": 6,
+                    "filename": "svcs/msgService.go"
+                },
+                {
+                    "blank": 82,
+                    "code": 272,
+                    "comment": 1,
+                    "filename": "svcs/reportService.go"
+                },
+                {
+                    "blank": 19,
+                    "code": 79,
+                    "comment": 3,
+                    "filename": "svcs/siteService.go"
+                },
+                {
+                    "blank": 38,
+                    "code": 94,
+                    "comment": 10,
+                    "filename": "svcs/teamService.go"
+                },
+                {
+                    "blank": 30,
+                    "code": 89,
+                    "comment": 6,
+                    "filename": "svcs/userService.go"
+                },
+                {
+                    "blank": 7,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "systemdata/groundSystem.go"
+                },
+                {
+                    "blank": 3,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "systemdata/imageType.go"
+                },
+                {
+                    "blank": 16,
+                    "code": 87,
+                    "comment": 0,
+                    "filename": "systemdata/platform.go"
+                },
+                {
+                    "blank": 16,
+                    "code": 67,
+                    "comment": 0,
+                    "filename": "systemdata/systemBasics.go"
+                },
+                {
+                    "blank": 17,
+                    "code": 106,
+                    "comment": 0,
+                    "filename": "teams/company.go"
+                },
+                {
+                    "blank": 6,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "teams/contacttypes.go"
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "teams/modperiod.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 168,
+                    "comment": 0,
+                    "filename": "teams/team.go"
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "users/jwttoken.go"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "users/requests.go"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "users/responses.go"
+                },
+                {
+                    "blank": 18,
+                    "code": 75,
+                    "comment": 0,
+                    "filename": "users/user.go"
+                }
+            ]
+        }
+    ]
+}
