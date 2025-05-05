@@ -9,29 +9,29 @@ import (
 )
 
 type MissionSensorOutage struct {
-	TotalOutageMinutes     uint `json:"totalOutageMinutes"`
-	PartialLBOutageMinutes uint `json:"partialLBOutageMinutes"`
-	PartialHBOutageMinutes uint `json:"partialHBOutageMinutes"`
+	TotalOutageMinutes     uint `json:"totalOutageMinutes" bson:"totalOutageMinutes"`
+	PartialLBOutageMinutes uint `json:"partialLBOutageMinutes" bson:"partialLBOutageMinutes"`
+	PartialHBOutageMinutes uint `json:"partialHBOutageMinutes" bson:"partialHBOutageMinutes"`
 }
 
 type MissionSensor struct {
-	SensorID          string                  `json:"sensorID"`
-	SensorType        systemdata.GeneralTypes `json:"sensorType"`
-	PreflightMinutes  uint                    `json:"preflightMinutes"`
-	ScheduledMinutes  uint                    `json:"scheduledMinutes"`
-	ExecutedMinutes   uint                    `json:"executedMinutes"`
-	PostflightMinutes uint                    `json:"postflightMinutes"`
-	AdditionalMinutes uint                    `json:"additionalMinutes"`
-	FinalCode         uint                    `json:"finalCode"`
-	KitNumber         string                  `json:"kitNumber"`
-	SensorOutage      MissionSensorOutage     `json:"sensorOutage"`
-	GroundOutage      uint                    `json:"groundOutage"`
-	HasHap            bool                    `json:"hasHap"`
-	TowerID           uint                    `json:"towerID,omitempty"`
-	SortID            uint                    `json:"sortID"`
-	Comments          string                  `json:"comments"`
+	SensorID          string                  `json:"sensorID" bson:"sensorID"`
+	SensorType        systemdata.GeneralTypes `json:"sensorType" bson:"sensorType"`
+	PreflightMinutes  uint                    `json:"preflightMinutes" bson:"preflightMinutes"`
+	ScheduledMinutes  uint                    `json:"scheduledMinutes" bson:"scheduledMinutes"`
+	ExecutedMinutes   uint                    `json:"executedMinutes" bson:"executedMinutes"`
+	PostflightMinutes uint                    `json:"postflightMinutes" bson:"postflightMinutes"`
+	AdditionalMinutes uint                    `json:"additionalMinutes" bson:"additionalMinutes"`
+	FinalCode         uint                    `json:"finalCode" bson:"finalCode"`
+	KitNumber         string                  `json:"kitNumber" bson:"kitNumber"`
+	SensorOutage      MissionSensorOutage     `json:"sensorOutage" bson:"sensorOutage"`
+	GroundOutage      uint                    `json:"groundOutage" bson:"groundOutage"`
+	HasHap            bool                    `json:"hasHap" bson:"hasHap"`
+	TowerID           uint                    `json:"towerID,omitempty" bson:"towerID,omitempty"`
+	SortID            uint                    `json:"sortID" bson:"sortID"`
+	Comments          string                  `json:"comments" bson:"comments"`
 	CheckedEquipment  []string                `json:"equipment,omitempty" bson:"equipment,omitempty"`
-	Images            []systemdata.ImageType  `json:"images"`
+	Images            []systemdata.ImageType  `json:"images" bson:"images,omitempty"`
 }
 
 type ByMissionSensor []MissionSensor
