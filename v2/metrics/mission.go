@@ -1,13 +1,6 @@
 package metrics
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/json"
-	"errors"
-	"io"
-	"os"
 	"strings"
 	"time"
 
@@ -37,6 +30,7 @@ type MissionSensor struct {
 	TowerID           uint                    `json:"towerID,omitempty"`
 	SortID            uint                    `json:"sortID"`
 	Comments          string                  `json:"comments"`
+	CheckedEquipment  []string                `json:"equipment,omitempty" bson:"equipment,omitempty"`
 	Images            []systemdata.ImageType  `json:"images"`
 }
 
@@ -48,27 +42,36 @@ func (c ByMissionSensor) Less(i, j int) bool {
 }
 func (c ByMissionSensor) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 
-type MissionData struct {
-	Exploitation   string          `json:"exploitation"`
-	TailNumber     string          `json:"tailNumber"`
-	Communications string          `json:"communications"`
-	PrimaryDCGS    string          `json:"primaryDCGS"`
-	Cancelled      bool            `json:"cancelled"`
-	Executed       bool            `json:"executed,omitempty"`
-	Aborted        bool            `json:"aborted"`
-	IndefDelay     bool            `json:"indefDelay"`
-	MissionOverlap uint            `json:"missionOverlap"`
-	Comments       string          `json:"comments"`
-	Sensors        []MissionSensor `json:"sensors,omitempty"`
+func (s *MissionSensor) EquipmentInUse(sid string) bool {
+	answer := false
+	if len(s.CheckedEquipment) > 0 {
+		for _, s := range s.CheckedEquipment {
+			if strings.EqualFold(s, sid) {
+				answer = true
+			}
+		}
+	} else {
+		answer = true
+	}
+	return answer
 }
 
 type Mission struct {
-	ID                   primitive.ObjectID `json:"id" bson:"_id"`
-	MissionDate          time.Time          `json:"missionDate" bson:"missionDate"`
-	PlatformID           string             `json:"platformID" bson:"platformID"`
-	SortieID             uint               `json:"sortieID" bson:"sortieID"`
-	EncryptedMissionData string             `json:"-" bson:"encryptedMissionData"`
-	MissionData          *MissionData       `json:"missionData" bson:"-"`
+	ID             primitive.ObjectID `json:"id" bson:"_id"`
+	MissionDate    time.Time          `json:"missionDate" bson:"missionDate"`
+	PlatformID     string             `json:"platformID" bson:"platformID"`
+	SortieID       uint               `json:"sortieID" bson:"sortieID"`
+	Exploitation   string             `json:"exploitation" bson:"exploitation"`
+	TailNumber     string             `json:"tailNumber" bson:"tailNumber"`
+	Communications string             `json:"communications" bson:"communications"`
+	PrimaryDCGS    string             `json:"primaryDCGS" bson:"primaryDCGS"`
+	Cancelled      bool               `json:"cancelled" bson:"cancelled"`
+	Executed       bool               `json:"executed,omitempty" bson:"executed,omitempty"`
+	Aborted        bool               `json:"aborted" bson:"aborted"`
+	IndefDelay     bool               `json:"indefDelay" bson:"indefDelay"`
+	MissionOverlap uint               `json:"missionOverlap" bson:"missionOverlap"`
+	Comments       string             `json:"comments" bson:"comments"`
+	Sensors        []MissionSensor    `json:"sensors,omitempty" bson:"sensors,omitempty"`
 }
 
 type ByMission []Mission
@@ -85,75 +88,16 @@ func (c ByMission) Less(i, j int) bool {
 }
 func (c ByMission) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 
-func (m *Mission) Encrypt() error {
-	data, err := json.Marshal(m.MissionData)
-	if err != nil {
-		return err
+func (m *Mission) EquipmentInUse(sid string) bool {
+	answer := false
+	if len(m.Sensors) > 0 {
+		for _, s := range m.Sensors {
+			if s.EquipmentInUse(sid) {
+				answer = true
+			}
+		}
+	} else {
+		answer = true
 	}
-
-	// get the security key from the environment and create a byte array from
-	// it for the cipher
-	keyString := os.Getenv("SECURITY_KEY")
-	key := []byte(keyString)
-
-	// create the aes cipher using our security key
-	c, err := aes.NewCipher(key)
-	if err != nil {
-		return err
-	}
-
-	// create the GCM for the symetric key
-	gcm, err := cipher.NewGCM(c)
-	if err != nil {
-		return err
-	}
-
-	// create a new byte array to hold the nonce which must be passed to create
-	// the encrypted value.
-	nonce := make([]byte, gcm.NonceSize())
-	// and populate it with a random code
-	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
-		return err
-	}
-
-	// lastly, encrypt the value and store in problem property above
-	m.EncryptedMissionData = string(gcm.Seal(nonce, nonce, data, nil))
-
-	return nil
-}
-
-func (m *Mission) Decrypt() error {
-	prob := []byte(m.EncryptedMissionData)
-	if len(prob) == 0 {
-		return errors.New("no encrypted mission data")
-	}
-	// get the security key from the environment and create a byte array from
-	// it for the cipher
-	keyString := os.Getenv("SECURITY_KEY")
-	key := []byte(keyString)
-
-	// create the aes cipher using our security key
-	c, err := aes.NewCipher(key)
-	if err != nil {
-		return err
-	}
-
-	// create the GCM for the symetric key
-	gcm, err := cipher.NewGCM(c)
-	if err != nil {
-		return err
-	}
-
-	nonceSize := gcm.NonceSize()
-	if len(prob) < nonceSize {
-		return errors.New("encrypted data too small")
-	}
-
-	nonce, prob := prob[:nonceSize], prob[nonceSize:]
-	plainText, err := gcm.Open(nil, nonce, prob, nil)
-	if err != nil {
-		return err
-	}
-	json.Unmarshal(plainText, &m.MissionData)
-	return nil
+	return answer
 }

@@ -79,7 +79,6 @@ func (ds *DrawSummary) Create() (*excelize.File, error) {
 	}
 
 	for _, msn := range tmissions {
-		msn.Decrypt()
 		for pos, mday := range ds.Missions {
 			if mday.MissionDate.Equal(msn.MissionDate) {
 				mday.Missions = append(mday.Missions, msn)
@@ -394,7 +393,6 @@ func (ds *DrawSummary) CreateMissionSheet(workbook *excelize.File) error {
 		} else {
 			sort.Sort(metrics.ByMission(msnday.Missions))
 			for msns, msn := range msnday.Missions {
-				msn.Decrypt()
 
 				showMission := ""
 				u2Text := ""
@@ -402,14 +400,14 @@ func (ds *DrawSummary) CreateMissionSheet(workbook *excelize.File) error {
 				groundOutage := uint(0)
 				partialHB := -1
 				partialLB := -1
-				sensorComments := msn.MissionData.Comments
+				sensorComments := msn.Comments
 				executeMinutes := uint(0)
 				for _, plat := range ds.SystemInfo.Platforms {
 					if strings.EqualFold(plat.ID, msn.PlatformID) {
-						for _, mSen := range msn.MissionData.Sensors {
+						for _, mSen := range msn.Sensors {
 							for _, pSen := range plat.Sensors {
 								if strings.EqualFold(mSen.SensorID, pSen.ID) &&
-									pSen.UseForExploitation(msn.MissionData.Exploitation, ds.ReportType) {
+									pSen.UseForExploitation(msn.Exploitation, ds.ReportType) {
 									sensorOutage = mSen.SensorOutage.TotalOutageMinutes
 									groundOutage = mSen.GroundOutage
 									sensorComments = strings.TrimSpace(sensorComments)
@@ -424,7 +422,7 @@ func (ds *DrawSummary) CreateMissionSheet(workbook *excelize.File) error {
 											mSen.KitNumber + " was Code " +
 											strconv.FormatUint(uint64(mSen.FinalCode), 10)
 										u2Text = " with " + pSen.Association + " and " +
-											msn.MissionData.Communications
+											msn.Communications
 									case "PME9":
 										showMission = "- DDSA/PME9: Kit " +
 											mSen.KitNumber + " was Code " +
@@ -447,32 +445,32 @@ func (ds *DrawSummary) CreateMissionSheet(workbook *excelize.File) error {
 					msns++
 					text := "This mission on " + ds.GetDateString(msn.MissionDate) +
 						" was " + strings.ToUpper(msn.PlatformID)
-					if msn.MissionData.TailNumber != "" {
-						text += " using Article " + msn.MissionData.TailNumber
+					if msn.TailNumber != "" {
+						text += " using Article " + msn.TailNumber
 					}
 					if u2Text != "" {
 						text += u2Text
 					}
-					if !strings.EqualFold(msn.MissionData.Exploitation, "primary") {
+					if !strings.EqualFold(msn.Exploitation, "primary") {
 						text += "\n\r- Primary exploitating DGS was DGS-" +
-							msn.MissionData.PrimaryDCGS
+							msn.PrimaryDCGS
 					}
-					if !msn.MissionData.Cancelled && !msn.MissionData.Aborted &&
-						!msn.MissionData.IndefDelay {
+					if !msn.Cancelled && !msn.Aborted &&
+						!msn.IndefDelay {
 						text += "\n\r" + showMission
 					}
-					if msn.MissionData.Aborted {
+					if msn.Aborted {
 						text += "\n\r- Mission Aborted early"
 					}
-					if msn.MissionData.Cancelled {
+					if msn.Cancelled {
 						text += "\n\r- Mission Cancelled"
 					}
-					if msn.MissionData.IndefDelay {
+					if msn.IndefDelay {
 						text += "\n\r- Mission Indefinite Delay"
 					}
-					if strings.EqualFold(msn.MissionData.Exploitation, "primary") &&
-						!msn.MissionData.Aborted && !msn.MissionData.Cancelled &&
-						!msn.MissionData.IndefDelay {
+					if strings.EqualFold(msn.Exploitation, "primary") &&
+						!msn.Aborted && !msn.Cancelled &&
+						!msn.IndefDelay {
 						text += "\n\r- Ground Outages: " +
 							strconv.FormatUint(uint64(groundOutage), 10) + " mins."
 						text += "\n\r- Sensor Outages: " +

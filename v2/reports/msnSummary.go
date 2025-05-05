@@ -64,10 +64,8 @@ func (ms *MissionSummary) Create() (*excelize.File, error) {
 		return nil, err
 	}
 
-	for _, msn := range tmissions {
-		msn.Decrypt()
-		ms.Missions = append(ms.Missions, msn)
-	}
+	ms.Missions = append(ms.Missions, tmissions...)
+
 	sort.Sort(metrics.ByMission(ms.Missions))
 	log.Println(len(ms.Missions))
 
@@ -314,7 +312,7 @@ func (ms *MissionSummary) AddSummarySheet(workbook *excelize.File,
 	for _, msn := range ms.Missions {
 		if (msn.MissionDate.Equal(start) || msn.MissionDate.After(start)) &&
 			(msn.MissionDate.Equal(end) || msn.MissionDate.Before(end)) {
-			exp := msn.MissionData.Exploitation
+			exp := msn.Exploitation
 			if !strings.EqualFold(exp, "primary") {
 				exp = "Shadow/Federated"
 			}
