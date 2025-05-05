@@ -1,4 +1,4 @@
-module github.com/erneap/go-models/v2
+module github.com/erneap/models
 
 go 1.22.0
 
