@@ -82,10 +82,7 @@ func (ms *MissionSummary) Create() (*excelize.File, error) {
 		return nil, err
 	}
 
-	for _, outage := range tOutages {
-		outage.Decrypt()
-		ms.Outages = append(ms.Outages, outage)
-	}
+	ms.Outages = append(ms.Outages, tOutages...)
 
 	sort.Sort(metrics.ByOutage(ms.Outages))
 

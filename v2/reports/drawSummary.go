@@ -100,7 +100,6 @@ func (ds *DrawSummary) Create() (*excelize.File, error) {
 	}
 
 	for _, outage := range tOutages {
-		outage.Decrypt()
 		for pos, oday := range ds.Outages {
 			if oday.OutageDate.Equal(outage.OutageDate) && outage.Capability == "NMC" {
 				oday.Outages = append(oday.Outages, outage)
