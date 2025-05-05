@@ -3,7 +3,7 @@ package sites
 import (
 	"time"
 
-	"github.com/erneap/models/labor"
+	"github.com/erneap/models/v2/labor"
 )
 
 type CofSCompany struct {

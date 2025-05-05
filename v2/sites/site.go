@@ -1,8 +1,8 @@
 package sites
 
 import (
-	"github.com/erneap/models/employees"
-	"github.com/erneap/models/labor"
+	"github.com/erneap/models/v2/employees"
+	"github.com/erneap/models/v2/labor"
 )
 
 type Site struct {

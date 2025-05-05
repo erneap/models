@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/metrics"
-	"github.com/erneap/models/systemdata"
+	"github.com/erneap/models/v2/metrics"
+	"github.com/erneap/models/v2/systemdata"
 )
 
 type MissionDay struct {

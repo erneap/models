@@ -5,7 +5,7 @@ import (
 	"net/smtp"
 	"strings"
 
-	"github.com/erneap/models/config"
+	"github.com/erneap/models/v2/config"
 )
 
 type SmtpServer struct {

@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/employees"
-	"github.com/erneap/models/labor"
-	"github.com/erneap/models/sites"
-	"github.com/erneap/models/svcs"
-	"github.com/erneap/models/teams"
+	"github.com/erneap/models/v2/employees"
+	"github.com/erneap/models/v2/labor"
+	"github.com/erneap/models/v2/sites"
+	"github.com/erneap/models/v2/svcs"
+	"github.com/erneap/models/v2/teams"
 )
 
 type ReportCofS struct {

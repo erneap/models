@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/erneap/models/config"
-	"github.com/erneap/models/employees"
+	"github.com/erneap/models/v2/config"
+	"github.com/erneap/models/v2/employees"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

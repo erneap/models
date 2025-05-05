@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/config"
-	"github.com/erneap/models/metrics"
-	"github.com/erneap/models/systemdata"
+	"github.com/erneap/models/v2/config"
+	"github.com/erneap/models/v2/metrics"
+	"github.com/erneap/models/v2/systemdata"
 	"github.com/xuri/excelize/v2"
 	"go.mongodb.org/mongo-driver/bson"
 )

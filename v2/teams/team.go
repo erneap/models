@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/labor"
-	"github.com/erneap/models/sites"
+	"github.com/erneap/models/v2/labor"
+	"github.com/erneap/models/v2/sites"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

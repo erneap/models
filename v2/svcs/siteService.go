@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/erneap/models/employees"
-	"github.com/erneap/models/sites"
+	"github.com/erneap/models/v2/employees"
+	"github.com/erneap/models/v2/sites"
 )
 
 // Every service will have functions for completing the CRUD functions

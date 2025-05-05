@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/erneap/models/employees"
-	"github.com/erneap/models/svcs"
+	"github.com/erneap/models/v2/employees"
+	"github.com/erneap/models/v2/svcs"
 	"github.com/xuri/excelize/v2"
 )
 

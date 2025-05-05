@@ -1,6 +1,6 @@
 package sites
 
-import "github.com/erneap/models/employees"
+import "github.com/erneap/models/v2/employees"
 
 type Shift struct {
 	ID              string               `json:"id" bson:"id"`

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/systemdata"
+	"github.com/erneap/models/v2/systemdata"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

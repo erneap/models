@@ -3,8 +3,8 @@ package svcs
 import (
 	"context"
 
-	"github.com/erneap/models/config"
-	"github.com/erneap/models/users"
+	"github.com/erneap/models/v2/config"
+	"github.com/erneap/models/v2/users"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

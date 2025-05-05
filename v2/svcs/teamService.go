@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/erneap/models/config"
-	"github.com/erneap/models/labor"
-	"github.com/erneap/models/teams"
+	"github.com/erneap/models/v2/config"
+	"github.com/erneap/models/v2/labor"
+	"github.com/erneap/models/v2/teams"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

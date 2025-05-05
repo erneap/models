@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/erneap/models/systemdata"
+	"github.com/erneap/models/v2/systemdata"
 )
 
 func InitialData() systemdata.SystemInfo {

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/erneap/models/converters"
+	"github.com/erneap/models/v2/converters"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

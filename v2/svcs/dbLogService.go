@@ -5,8 +5,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/erneap/models/config"
-	"github.com/erneap/models/general"
+	"github.com/erneap/models/v2/config"
+	"github.com/erneap/models/v2/general"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
