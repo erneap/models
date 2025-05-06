@@ -57,6 +57,9 @@ func (s *MissionSensor) EquipmentInUse(sid string) bool {
 }
 
 func (s *MissionSensor) ModifyEquipment(item, value string) {
+	if strings.EqualFold(item, "apsplus") {
+		item = "aps+"
+	}
 	if strings.EqualFold(value, "true") {
 		found := false
 		for _, e := range s.CheckedEquipment {
