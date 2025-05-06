@@ -391,8 +391,8 @@ func (ms *MissionSummary) AddSummarySheet(workbook *excelize.File,
 	workbook.SetCellValue(label, "G4", ms.GetDateString(end))
 	execution := uint(0)
 	for _, mType := range missionMap {
-		execution += (mType.GetExecutedTime(sensors, nil) +
-			mType.GetAdditional(sensors, nil)) - mType.GetOverlap()
+		execution += (mType.GetExecutedTime(sensors, nil, "") +
+			mType.GetAdditional(sensors, nil, "")) - mType.GetOverlap()
 	}
 	workbook.MergeCell(label, "I4", "J4")
 	workbook.SetCellValue(label, "I4", ms.GetTimeString(execution))
@@ -531,51 +531,29 @@ func (ms *MissionSummary) AddSummarySheet(workbook *excelize.File,
 			(rptType == systemdata.SYERS && gs.ShowOnGSEG) ||
 			(rptType == systemdata.MIST && gs.ShowOnMIST) ||
 			(rptType == systemdata.XINT && gs.ShowOnXINT) {
-			premission := uint(0)
-			scheduled := uint(0)
-			executed := uint(0)
-			postmission := uint(0)
-			overlap := uint(0)
-			outageNumber := uint(0)
-			outageTime := uint(0)
-			for _, mType := range missionMap {
-				if len(gs.Exploitations) == 0 {
-					for _, exp := range exploitations {
-						if strings.EqualFold(exp, mType.Exploitation) {
-							premission += mType.GetPremissionTime(sensors, nil)
-							scheduled += mType.GetScheduledTime(sensors, nil)
-							executed += (mType.GetExecutedTime(sensors, nil) +
-								mType.GetAdditional(sensors, nil))
-							overlap += mType.GetOverlap()
-							postmission += mType.GetPostmissionTime(sensors, nil)
-						}
-					}
-				} else {
-					found := false
-					for _, exp := range gs.Exploitations {
-						if strings.EqualFold(exp.Exploitation, mType.Exploitation) &&
-							strings.EqualFold(exp.PlatformID, mType.Platform) {
-							found = true
-						}
-					}
-					if found {
-						premission += mType.GetPremissionTime(sensors, &gs)
-						scheduled += mType.GetScheduledTime(sensors, &gs)
-						executed += (mType.GetExecutedTime(sensors, &gs) +
-							mType.GetAdditional(sensors, &gs))
-						overlap += mType.GetOverlap()
-						postmission += mType.GetPostmissionTime(sensors, &gs)
-					}
-				}
-			}
-			if executed >= overlap && overlap > 0 {
-				executed -= overlap
-			} else if executed < overlap {
-				executed = uint(0)
-			}
+
 			encCount := -1
 			nRow++
 			for _, enclave := range gs.Enclaves {
+				premission := uint(0)
+				scheduled := uint(0)
+				executed := uint(0)
+				postmission := uint(0)
+				overlap := uint(0)
+				outageNumber := uint(0)
+				outageTime := uint(0)
+				for _, mType := range missionMap {
+					premission += mType.GetPostmissionTime(sensors, &gs, enclave)
+					scheduled += mType.GetScheduledTime(sensors, &gs, enclave)
+					executed += mType.GetExecutedTime(sensors, &gs, enclave)
+					postmission += mType.GetPostmissionTime(sensors, &gs, enclave)
+					overlap += mType.GetOverlap()
+				}
+				if executed >= overlap && overlap > 0 {
+					executed -= overlap
+				} else if executed < overlap {
+					executed = uint(0)
+				}
 				encCount++
 				outageNumber = 0
 				outageTime = 0

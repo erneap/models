@@ -156,33 +156,27 @@ func (mt *MissionType) GetAborted(exploit string, sens []string) int {
 }
 
 func (mt *MissionType) GetPremissionTime(sens []string,
-	gs *systemdata.GroundSystem) uint {
+	gs *systemdata.GroundSystem, enclave string) uint {
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		msnExp := strings.ToLower(msn.Exploitation)
-		msnComm := strings.ToLower(msn.Communications)
-		if gs != nil {
-			for _, exp := range gs.Exploitations {
-				gsExp := strings.ToLower(exp.Exploitation)
-				gsComm := strings.ToLower(exp.CommunicationID)
-				if strings.EqualFold(msn.PlatformID, exp.PlatformID) &&
-					strings.Contains(gsExp, msnExp) &&
-					strings.Contains(gsComm, msnComm) {
-					for _, mSen := range msn.Sensors {
-						if strings.EqualFold(exp.SensorType, mSen.SensorID) &&
-							senMax < mSen.PreflightMinutes {
+		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
+			if gs != nil {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.PreflightMinutes {
 							senMax = mSen.PreflightMinutes
 						}
 					}
 				}
-			}
-		} else {
-			for _, sen := range msn.Sensors {
-				for _, lsen := range sens {
-					if strings.EqualFold(sen.SensorID, lsen) &&
-						senMax < sen.PreflightMinutes {
-						senMax = sen.PreflightMinutes
+			} else {
+				for _, sen := range msn.Sensors {
+					for _, lsen := range sens {
+						if strings.EqualFold(sen.SensorID, lsen) &&
+							senMax < sen.PreflightMinutes {
+							senMax = sen.PreflightMinutes
+						}
 					}
 				}
 			}
@@ -193,33 +187,27 @@ func (mt *MissionType) GetPremissionTime(sens []string,
 }
 
 func (mt *MissionType) GetPostmissionTime(sens []string,
-	gs *systemdata.GroundSystem) uint {
+	gs *systemdata.GroundSystem, enclave string) uint {
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		msnExp := strings.ToLower(msn.Exploitation)
-		msnComm := strings.ToLower(msn.Communications)
-		if gs != nil {
-			for _, exp := range gs.Exploitations {
-				gsExp := strings.ToLower(exp.Exploitation)
-				gsComm := strings.ToLower(exp.CommunicationID)
-				if strings.EqualFold(msn.PlatformID, exp.PlatformID) &&
-					strings.Contains(gsExp, msnExp) &&
-					strings.Contains(gsComm, msnComm) {
-					for _, mSen := range msn.Sensors {
-						if strings.EqualFold(exp.SensorType, mSen.SensorID) &&
-							senMax < mSen.PostflightMinutes {
+		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
+			if gs != nil {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.PostflightMinutes {
 							senMax = mSen.PostflightMinutes
 						}
 					}
 				}
-			}
-		} else {
-			for _, sen := range msn.Sensors {
-				for _, lsen := range sens {
-					if strings.EqualFold(sen.SensorID, lsen) &&
-						senMax < sen.PostflightMinutes {
-						senMax = sen.PostflightMinutes
+			} else {
+				for _, sen := range msn.Sensors {
+					for _, lsen := range sens {
+						if strings.EqualFold(sen.SensorID, lsen) &&
+							senMax < sen.PostflightMinutes {
+							senMax = sen.PostflightMinutes
+						}
 					}
 				}
 			}
@@ -230,33 +218,27 @@ func (mt *MissionType) GetPostmissionTime(sens []string,
 }
 
 func (mt *MissionType) GetScheduledTime(sens []string,
-	gs *systemdata.GroundSystem) uint {
+	gs *systemdata.GroundSystem, enclave string) uint {
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		msnExp := strings.ToLower(msn.Exploitation)
-		msnComm := strings.ToLower(msn.Communications)
-		if gs != nil {
-			for _, exp := range gs.Exploitations {
-				gsExp := strings.ToLower(exp.Exploitation)
-				gsComm := strings.ToLower(exp.CommunicationID)
-				if strings.EqualFold(msn.PlatformID, exp.PlatformID) &&
-					strings.Contains(gsExp, msnExp) &&
-					strings.Contains(gsComm, msnComm) {
-					for _, mSen := range msn.Sensors {
-						if strings.EqualFold(exp.SensorType, mSen.SensorID) &&
-							senMax < mSen.ScheduledMinutes {
+		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
+			if gs != nil {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.ScheduledMinutes {
 							senMax = mSen.ScheduledMinutes
 						}
 					}
 				}
-			}
-		} else {
-			for _, sen := range msn.Sensors {
-				for _, lsen := range sens {
-					if strings.EqualFold(sen.SensorID, lsen) &&
-						senMax < sen.ScheduledMinutes {
-						senMax = sen.ScheduledMinutes
+			} else {
+				for _, sen := range msn.Sensors {
+					for _, lsen := range sens {
+						if strings.EqualFold(sen.SensorID, lsen) &&
+							senMax < sen.ScheduledMinutes {
+							senMax = sen.ScheduledMinutes
+						}
 					}
 				}
 			}
@@ -267,33 +249,27 @@ func (mt *MissionType) GetScheduledTime(sens []string,
 }
 
 func (mt *MissionType) GetExecutedTime(sens []string,
-	gs *systemdata.GroundSystem) uint {
+	gs *systemdata.GroundSystem, enclave string) uint {
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		msnExp := strings.ToLower(msn.Exploitation)
-		msnComm := strings.ToLower(msn.Communications)
-		if gs != nil {
-			for _, exp := range gs.Exploitations {
-				gsExp := strings.ToLower(exp.Exploitation)
-				gsComm := strings.ToLower(exp.CommunicationID)
-				if strings.EqualFold(msn.PlatformID, exp.PlatformID) &&
-					strings.Contains(gsExp, msnExp) &&
-					strings.Contains(gsComm, msnComm) {
-					for _, mSen := range msn.Sensors {
-						if strings.EqualFold(exp.SensorType, mSen.SensorID) &&
-							senMax < mSen.ExecutedMinutes {
+		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
+			if gs != nil {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.ExecutedMinutes {
 							senMax = mSen.ExecutedMinutes
 						}
 					}
 				}
-			}
-		} else {
-			for _, sen := range msn.Sensors {
-				for _, lsen := range sens {
-					if strings.EqualFold(sen.SensorID, lsen) &&
-						senMax < sen.ExecutedMinutes {
-						senMax = sen.ExecutedMinutes
+			} else {
+				for _, sen := range msn.Sensors {
+					for _, lsen := range sens {
+						if strings.EqualFold(sen.SensorID, lsen) &&
+							senMax < sen.ExecutedMinutes {
+							senMax = sen.ExecutedMinutes
+						}
 					}
 				}
 			}
@@ -304,33 +280,27 @@ func (mt *MissionType) GetExecutedTime(sens []string,
 }
 
 func (mt *MissionType) GetAdditional(sens []string,
-	gs *systemdata.GroundSystem) uint {
+	gs *systemdata.GroundSystem, enclave string) uint {
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		msnExp := strings.ToLower(msn.Exploitation)
-		msnComm := strings.ToLower(msn.Communications)
-		if gs != nil {
-			for _, exp := range gs.Exploitations {
-				gsExp := strings.ToLower(exp.Exploitation)
-				gsComm := strings.ToLower(exp.CommunicationID)
-				if strings.EqualFold(msn.PlatformID, exp.PlatformID) &&
-					strings.Contains(gsExp, msnExp) &&
-					strings.Contains(gsComm, msnComm) {
-					for _, mSen := range msn.Sensors {
-						if strings.EqualFold(exp.SensorType, mSen.SensorID) &&
-							senMax < mSen.AdditionalMinutes {
+		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
+			if gs != nil {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.AdditionalMinutes {
 							senMax = mSen.AdditionalMinutes
 						}
 					}
 				}
-			}
-		} else {
-			for _, sen := range msn.Sensors {
-				for _, lsen := range sens {
-					if strings.EqualFold(sen.SensorID, lsen) &&
-						senMax < sen.AdditionalMinutes {
-						senMax = sen.AdditionalMinutes
+			} else {
+				for _, sen := range msn.Sensors {
+					for _, lsen := range sens {
+						if strings.EqualFold(sen.SensorID, lsen) &&
+							senMax < sen.AdditionalMinutes {
+							senMax = sen.AdditionalMinutes
+						}
 					}
 				}
 			}

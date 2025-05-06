@@ -1,10 +1,13 @@
 package systemdata
 
+import "strings"
+
 type GroundSystemExploitation struct {
-	PlatformID      string `json:"platformID" bson:"platformID"`
-	SensorType      string `json:"sensorType" bson:"sensorType"`
-	Exploitation    string `json:"exploitation" bson:"exploitation"`
-	CommunicationID string `json:"communicationID" bson:"communicationID"`
+	PlatformID      string   `json:"platformID" bson:"platformID"`
+	SensorType      string   `json:"sensorType" bson:"sensorType"`
+	Exploitation    string   `json:"exploitation" bson:"exploitation"`
+	CommunicationID string   `json:"communicationID" bson:"communicationID"`
+	Enclaves        []string `json:"enclaves,omitempty" bson:"enclaves,omitempty"`
 }
 
 type ByGSExploitation []GroundSystemExploitation
@@ -43,15 +46,32 @@ func (c ByGroundSystem) Less(i, j int) bool {
 }
 func (c ByGroundSystem) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 
-func (gs *GroundSystem) UseMissionSensor(platform, sensor, exploit, comm string) bool {
+func (gs *GroundSystem) UseMissionSensor(platform, sensor, exploit, comm, enclave string) bool {
 	if len(gs.Exploitations) == 0 {
 		return true
 	}
+	sensor = strings.ToLower(sensor)
+	exploit = strings.ToLower(exploit)
+	comm = strings.ToLower(comm)
 	answer := false
 	for _, exp := range gs.Exploitations {
-		if exp.PlatformID == platform && exp.SensorType == sensor &&
-			exp.Exploitation == exploit && exp.CommunicationID == comm {
-			answer = true
+		if strings.EqualFold(exp.PlatformID, platform) &&
+			strings.Contains(strings.ToLower(exp.SensorType), sensor) &&
+			strings.Contains(strings.ToLower(exp.Exploitation), exploit) &&
+			strings.Contains(strings.ToLower(exp.CommunicationID), comm) {
+			if enclave != "" {
+				if len(exp.Enclaves) > 0 {
+					for _, enc := range exp.Enclaves {
+						if strings.EqualFold(enclave, enc) {
+							answer = true
+						}
+					}
+				} else {
+					answer = true
+				}
+			} else {
+				answer = true
+			}
 		}
 	}
 	return answer
