@@ -1,6 +1,7 @@
 package reports
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -253,6 +254,7 @@ func (mt *MissionType) GetExecutedTime(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
+		fmt.Println(gs.CheckForUse)
 		if gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
 			if gs != nil {
 				for _, mSen := range msn.Sensors {
