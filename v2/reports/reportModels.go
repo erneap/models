@@ -160,12 +160,14 @@ func (mt *MissionType) GetPremissionTime(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		if gs != nil && gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
-			for _, mSen := range msn.Sensors {
-				if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
-					msn.Communications, enclave) {
-					if senMax < mSen.PreflightMinutes {
-						senMax = mSen.PreflightMinutes
+		if gs != nil && gs.CheckForUse {
+			if msn.EquipmentInUse(gs.ID) {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.PreflightMinutes {
+							senMax = mSen.PreflightMinutes
+						}
 					}
 				}
 			}
@@ -189,12 +191,14 @@ func (mt *MissionType) GetPostmissionTime(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		if gs != nil && gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
-			for _, mSen := range msn.Sensors {
-				if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
-					msn.Communications, enclave) {
-					if senMax < mSen.PostflightMinutes {
-						senMax = mSen.PostflightMinutes
+		if gs != nil && gs.CheckForUse {
+			if msn.EquipmentInUse(gs.ID) {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.PostflightMinutes {
+							senMax = mSen.PostflightMinutes
+						}
 					}
 				}
 			}
@@ -218,12 +222,14 @@ func (mt *MissionType) GetScheduledTime(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		if gs != nil && gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
-			for _, mSen := range msn.Sensors {
-				if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
-					msn.Communications, enclave) {
-					if senMax < mSen.ScheduledMinutes {
-						senMax = mSen.ScheduledMinutes
+		if gs != nil && gs.CheckForUse {
+			if msn.EquipmentInUse(gs.ID) {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.ScheduledMinutes {
+							senMax = mSen.ScheduledMinutes
+						}
 					}
 				}
 			}
@@ -247,12 +253,14 @@ func (mt *MissionType) GetExecutedTime(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		if gs != nil && gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
-			for _, mSen := range msn.Sensors {
-				if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
-					msn.Communications, enclave) {
-					if senMax < mSen.ExecutedMinutes {
-						senMax = mSen.ExecutedMinutes
+		if gs != nil && gs.CheckForUse {
+			if msn.EquipmentInUse(gs.ID) {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.ExecutedMinutes {
+							senMax = mSen.ExecutedMinutes
+						}
 					}
 				}
 			}
@@ -276,12 +284,14 @@ func (mt *MissionType) GetAdditional(sens []string,
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
-		if gs != nil && gs.CheckForUse && msn.EquipmentInUse(gs.ID) {
-			for _, mSen := range msn.Sensors {
-				if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
-					msn.Communications, enclave) {
-					if senMax < mSen.AdditionalMinutes {
-						senMax = mSen.AdditionalMinutes
+		if gs != nil && gs.CheckForUse {
+			if msn.EquipmentInUse(gs.ID) {
+				for _, mSen := range msn.Sensors {
+					if gs.UseMissionSensor(msn.PlatformID, mSen.SensorID, msn.Exploitation,
+						msn.Communications, enclave) {
+						if senMax < mSen.AdditionalMinutes {
+							senMax = mSen.AdditionalMinutes
+						}
 					}
 				}
 			}
