@@ -56,6 +56,30 @@ func (s *MissionSensor) EquipmentInUse(sid string) bool {
 	return answer
 }
 
+func (s *MissionSensor) ModifyEquipment(item, value string) {
+	if strings.EqualFold(value, "true") {
+		found := false
+		for _, e := range s.CheckedEquipment {
+			if strings.EqualFold(e, item) {
+				found = true
+			}
+		}
+		if !found {
+			s.CheckedEquipment = append(s.CheckedEquipment, item)
+		}
+	} else {
+		found := -1
+		for i, e := range s.CheckedEquipment {
+			if strings.EqualFold(e, item) {
+				found = i
+			}
+		}
+		if found >= 0 {
+			s.CheckedEquipment = append(s.CheckedEquipment[:found], s.CheckedEquipment[found+1:]...)
+		}
+	}
+}
+
 type Mission struct {
 	ID             primitive.ObjectID `json:"id" bson:"_id"`
 	MissionDate    time.Time          `json:"missionDate" bson:"missionDate"`
