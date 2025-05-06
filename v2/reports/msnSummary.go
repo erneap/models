@@ -54,7 +54,7 @@ func (ms *MissionSummary) Create() (*excelize.File, error) {
 	// collect all the missions for the period
 	var tmissions []metrics.Mission
 	filter := bson.M{"missionDate": bson.M{"$gte": ms.StartDate, "$lte": ms.EndDate}}
-	cursor, err := config.GetCollection(config.DB, "metrics", "missions").Find(context.TODO(),
+	cursor, err := config.GetCollection(config.DB, "metrics2", "missions").Find(context.TODO(),
 		filter)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func (ms *MissionSummary) Create() (*excelize.File, error) {
 	// collect all the outages for the period
 	var tOutages []metrics.GroundOutage
 	filter = bson.M{"outageDate": bson.M{"$gte": ms.StartDate, "$lte": ms.EndDate}}
-	cursor, err = config.GetCollection(config.DB, "metrics", "groundoutages").Find(context.TODO(),
+	cursor, err = config.GetCollection(config.DB, "metrics2", "outages").Find(context.TODO(),
 		filter)
 	if err != nil {
 		return nil, err
