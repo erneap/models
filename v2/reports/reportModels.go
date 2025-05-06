@@ -1,6 +1,7 @@
 package reports
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -250,6 +251,7 @@ func (mt *MissionType) GetScheduledTime(sens []string,
 
 func (mt *MissionType) GetExecutedTime(sens []string,
 	gs *systemdata.GroundSystem, enclave string) uint {
+	fmt.Println(gs.ID)
 	answer := uint(0)
 	for _, msn := range mt.Missions {
 		senMax := uint(0)
