@@ -338,7 +338,6 @@ func (sr *EnterpriseSchedule) CreateEmployeeRow(sheetLabel string,
 	sr.Report.SetCellStyle(sheetLabel, GetCellID(0, row), GetCellID(0, row), style)
 	sr.Report.SetCellValue(sheetLabel, GetCellID(0, row),
 		emp.Name.GetLastFirst())
-	fmt.Println(emp.Name.GetLastFirst())
 
 	current := time.Date(start.Year(), start.Month(), start.Day(), 0, 0, 0, 0,
 		time.UTC)
@@ -368,8 +367,9 @@ func (sr *EnterpriseSchedule) GetDateValue(code string, hours float64) string {
 			} else {
 				answer = fmt.Sprintf("%02d", wc.StartTime)
 				ihours := int(hours)
-				fmt.Printf("%s - %d\n", wc.Id, ihours)
-				answer += letters[ihours-1 : ihours]
+				if ihours > 0 {
+					answer += letters[ihours-1 : ihours]
+				}
 			}
 		}
 	}
