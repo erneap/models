@@ -338,6 +338,7 @@ func (sr *EnterpriseSchedule) CreateEmployeeRow(sheetLabel string,
 	sr.Report.SetCellStyle(sheetLabel, GetCellID(0, row), GetCellID(0, row), style)
 	sr.Report.SetCellValue(sheetLabel, GetCellID(0, row),
 		emp.Name.GetLastFirst())
+	fmt.Println(emp.Name.GetLastFirst())
 
 	current := time.Date(start.Year(), start.Month(), start.Day(), 0, 0, 0, 0,
 		time.UTC)
