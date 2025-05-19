@@ -367,6 +367,7 @@ func (sr *EnterpriseSchedule) GetDateValue(code string, hours float64) string {
 			} else {
 				answer = fmt.Sprintf("%02d", wc.StartTime)
 				ihours := int(hours)
+				fmt.Println(ihours)
 				answer += letters[ihours-1 : ihours]
 			}
 		}
