@@ -1,6 +1,12 @@
 package sites
 
-import "github.com/erneap/models/v2/employees"
+import (
+	"sort"
+	"strings"
+	"time"
+
+	"github.com/erneap/models/v2/employees"
+)
 
 type Shift struct {
 	ID              string               `json:"id" bson:"id"`
@@ -51,3 +57,42 @@ func (c ByWorkcenter) Less(i, j int) bool {
 	return c[i].SortID < c[j].SortID
 }
 func (c ByWorkcenter) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
+
+func (w *Workcenter) Assign(e *employees.Employee, date time.Time) {
+	// check if employee is assigned to a position
+	bPosition := false
+	if len(w.Positions) > 0 {
+		for p, pos := range w.Positions {
+			for _, asgn := range pos.Assigned {
+				if strings.EqualFold(asgn, e.ID.Hex()) {
+					bPosition = true
+					pos.Employees = append(pos.Employees, *e)
+					sort.Sort(employees.ByEmployees(pos.Employees))
+					w.Positions[p] = pos
+				}
+			}
+		}
+	}
+	if !bPosition && len(w.Shifts) > 0 {
+		wc := e.GetWorkday(date, date)
+		for s, shft := range w.Shifts {
+			for _, code := range shft.AssociatedCodes {
+				if strings.EqualFold(wc.Code, code) {
+					shft.Employees = append(shft.Employees, *e)
+					w.Shifts[s] = shft
+				}
+			}
+		}
+	}
+}
+
+func (w *Workcenter) ClearEmployees() {
+	for p, pos := range w.Positions {
+		pos.Employees = pos.Employees[:0]
+		w.Positions[p] = pos
+	}
+	for s, shft := range w.Shifts {
+		shft.Employees = shft.Employees[:0]
+		w.Shifts[s] = shft
+	}
+}
