@@ -7,11 +7,12 @@ import (
 )
 
 type Notification struct {
-	ID      primitive.ObjectID `json:"id" bson:"_id"`
-	Date    time.Time          `json:"date" bson:"date"`
-	To      string             `json:"to" bson:"to"`
-	From    string             `json:"from" bson:"from"`
-	Message string             `json:"message" bson:"bson"`
+	ID       primitive.ObjectID `json:"id" bson:"_id"`
+	Date     time.Time          `json:"date" bson:"date"`
+	To       string             `json:"to" bson:"to"`
+	From     string             `json:"from" bson:"from"`
+	Message  string             `json:"message" bson:"bson"`
+	Critical bool               `json:"critical" bson:"critical,omitempty"`
 }
 
 type ByNofication []Notification
