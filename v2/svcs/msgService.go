@@ -100,6 +100,30 @@ func CreateMessage(to, from, message string) error {
 	return nil
 }
 
+// Create function which include receipent, sender and message.
+// the identifier and date are automatic.
+func CreateCriticalMessage(to, from, message string) error {
+	noteCol := config.GetCollection(config.DB, "scheduler", "notifications")
+
+	msg := &notifications.Notification{
+		ID:       primitive.NewObjectID(),
+		Date:     time.Now().UTC(),
+		To:       to,
+		From:     from,
+		Message:  message,
+		Critical: true,
+	}
+
+	result, err := noteCol.InsertOne(context.TODO(), msg)
+	if err != nil {
+		return err
+	}
+	if result.InsertedID == primitive.NilObjectID {
+		return errors.New("not created")
+	}
+	return nil
+}
+
 // There is no update routine because messages can't be updated manually.
 
 // After the message is viewed, it will be acknowledged and removed
