@@ -27,10 +27,7 @@ func (c ByShift) Less(i, j int) bool {
 func (c ByShift) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 
 func (s *Shift) BelowMinimums() bool {
-	if len(s.Employees) < int(s.Minimums) {
-		return true
-	}
-	return false
+	return len(s.Employees) < int(s.Minimums)
 }
 
 type Position struct {
