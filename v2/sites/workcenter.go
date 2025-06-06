@@ -26,6 +26,13 @@ func (c ByShift) Less(i, j int) bool {
 }
 func (c ByShift) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 
+func (s *Shift) BelowMinimums() bool {
+	if len(s.Employees) < int(s.Minimums) {
+		return true
+	}
+	return false
+}
+
 type Position struct {
 	ID        string               `json:"id" bson:"id"`
 	Name      string               `json:"name" bson:"name"`
