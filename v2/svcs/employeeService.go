@@ -128,6 +128,21 @@ func GetEmployee(id string) (*employees.Employee, error) {
 	var user users.User
 	userCol.FindOne(context.TODO(), filter).Decode(&user)
 	emp.User = &user
+
+	// any work records for current year and previous
+	now := time.Now().UTC()
+	year1 := now.Year()
+	year2 := year1 - 1
+
+	work, err := GetEmployeeWork(id, uint(year1))
+	if err == nil {
+		emp.Work = append(emp.Work, work.Work...)
+	}
+
+	work, err = GetEmployeeWork(id, uint(year2))
+	if err == nil {
+		emp.Work = append(emp.Work, work.Work...)
+	}
 	return &emp, nil
 }
 
@@ -170,6 +185,21 @@ func GetEmployeeByName(first, middle, last string) (*employees.Employee, error) 
 	}
 	userCol.FindOne(context.TODO(), filter).Decode(&user)
 	emp.User = &user
+
+	// any work records for current year and previous
+	now := time.Now().UTC()
+	year1 := now.Year()
+	year2 := year1 - 1
+
+	work, err := GetEmployeeWork(emp.ID.Hex(), uint(year1))
+	if err == nil {
+		emp.Work = append(emp.Work, work.Work...)
+	}
+
+	work, err = GetEmployeeWork(emp.ID.Hex(), uint(year2))
+	if err == nil {
+		emp.Work = append(emp.Work, work.Work...)
+	}
 
 	return &emp, nil
 }
