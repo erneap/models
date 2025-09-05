@@ -83,7 +83,7 @@ func (m *MidShiftReport) Create() error {
 	m.Date = time.Date(m.Date.Year(), time.Month(1), 1, 0,
 		0, 0, 0, time.UTC)
 	for _, emp := range m.Employees {
-		for _, vari := range emp.Data.Variations {
+		for _, vari := range emp.Variations {
 			if vari.IsMids {
 				if vari.StartDate.After(m.Date) ||
 					vari.EndDate.After(m.Date) {
