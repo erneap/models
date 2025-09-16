@@ -234,7 +234,8 @@ func (e *Employee) GetWorkday(date, lastWork time.Time) *Workday {
 			lv.LeaveDate.Month() == date.Month() &&
 			lv.LeaveDate.Day() == date.Day() &&
 			(lv.Hours > (stdWorkDay/2) || (work == 0.0 &&
-				strings.EqualFold(lv.Status, "actual"))) {
+				(strings.EqualFold(lv.Status, "actual") ||
+					strings.EqualFold(lv.Status, "Approved")))) {
 			wkday = &Workday{
 				ID:         uint(0),
 				Workcenter: "",
