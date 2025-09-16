@@ -280,7 +280,8 @@ func (e *Employee) GetWorkdayActual(date time.Time,
 	if bPrimary || len(labor) == 0 {
 		for _, lv := range e.Leaves {
 			if lv.LeaveDate.Equal(date) &&
-				strings.EqualFold(lv.Status, "actual") {
+				(strings.EqualFold(lv.Status, "actual") ||
+					strings.EqualFold(lv.Status, "approved")) {
 				if !bLeave {
 					wkday = &Workday{
 						ID:         uint(0),
