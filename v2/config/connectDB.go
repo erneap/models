@@ -56,3 +56,5 @@ func GetCollection(client *mongo.Client, dbName, collectionName string) *mongo.C
 	collection := client.Database(dbName).Collection(collectionName)
 	return collection
 }
+
+// no comment
